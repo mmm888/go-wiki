@@ -1,0 +1,43 @@
+/*** Custom CSS ***/
+
+/* header
+-------------------------------------------------- */
+
+header {
+    height: 50px; /*ヘッダーの高さ*/
+    width: 100%; /*ヘッダーの横幅*/
+    background-color: black; /*ヘッダーの背景色*/
+    color: white; /*ヘッダーの文字の色*/
+}
+
+header p {
+    line-height: 0px; /*行の高さ*/
+    float: left; /*左に流す*/
+    font-size: 25px; /*文字の大きさ*/
+    margin-left: 25px; /*左にマージンを取っている*/
+}
+
+header nav {
+    float: left; /*左に流す*/
+}
+
+header li {
+    line-height: 20px; /*行の高さ*/
+    float: left; /*左に流す*/
+    margin-right: 30px; /*li間の幅を開くために左にマージンを取っている*/
+    text-align: right; /*右寄せ*/
+    list-style: none; /*デフォルトでついているliの黒点をnoneにしている*/
+}
+
+header a {
+    color: white; /*ヘッダーのリンクの文字の色*/
+    text-decoration: none; /*リンクの下線削除*/
+}
+
+/* tree
+-------------------------------------------------- */
+
+.tree a {
+    color: blue; /*treeクラスのリンクの文字の色*/
+    text-decoration: none; /*リンクの下線削除*/
+}

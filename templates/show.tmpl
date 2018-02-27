@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/main.css" type="text/css">
+    <title>Wiki</title>
+</head>
+<body>
+<header>
+    <p><a href="/">Wiki</a></p>
+    <nav>
+        <ul>
+            <li><a href="/show{{.Query}}">show</a></li>
+            <li><a href="/edit{{.Query}}">edit</a></li>
+            <li><a href="/diff{{.Query}}">diff</a></li>
+            <li><a href="/config">config</a></li>
+        </ul>
+    </nav>
+</header>
+
+<h2>目次</h2>
+<div class="tree">
+{{.Tree}}
+</div>
+
+<h2>内容</h2>
+{{.Contents}}
+</body>
+</html>

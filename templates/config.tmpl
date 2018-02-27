@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/main.css" type="text/css">
+    <title>Wiki</title>
+</head>
+
+<body>
+<header>
+    <p><a href="/">Wiki</a></p>
+    <nav>
+        <ul>
+            <li><a href="/show{{.Query}}">show</a></li>
+            <li><a href="/edit{{.Query}}">edit</a></li>
+            <li><a href="/diff{{.Query}}">diff</a></li>
+            <li><a href="/config">config</a></li>
+        </ul>
+    </nav>
+</header>
+
+<h1>Config</h1>
+
+<h2>現在の設定</h2>
+<p>
+    Name: {{.Name}}
+</p>
+<p>
+    Wiki URL: {{.Repo}}
+</p>
+
+<h2>設定変更</h2>
+
+<form action="/config" method="post">
+    <p>
+        Name: <input type="text" name="name" size="10" placeholder="例: wiki">
+    </p>
+    <p>
+        Wiki URL: <input type="text" name="repo" size="30" placeholder="例: https://github.com/hoge/huga.git">
+    </p>
+    <p>
+        <input type="submit" value="送信">
+    </p>
+</form>
+</body>
+</html>
