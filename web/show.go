@@ -4,18 +4,19 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"text/template"
 
 	"github.com/go-chi/chi"
 	"github.com/mmm888/go-wiki/app"
 	wiki "github.com/mmm888/go-wiki/domain"
 	"github.com/mmm888/go-wiki/middleware/markdown"
+	"github.com/mmm888/go-wiki/middleware/templates"
 	"github.com/mmm888/go-wiki/middleware/variable"
 )
 
 type ShowHandler struct {
 	Router     *chi.Mux
 	CommonVars *variable.CommonVars
+	Templates  *templates.Templates
 	Markdown   markdown.Markdown
 	Service    *app.ShowService
 }
@@ -47,9 +48,7 @@ func (h *ShowHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		out.Query = fmt.Sprintf("?path=%s", out.Path)
 	}
 
-	funcMap := template.FuncMap{}
-	tmpl := template.Must(template.New("show.tmpl").Funcs(funcMap).ParseFiles("templates/show.tmpl"))
-	if err := tmpl.Execute(w, out); err != nil {
+	if err := h.Templates.Render("show", w, out); err != nil {
 		log.Print(err)
 	}
 }

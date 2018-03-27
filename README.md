@@ -12,11 +12,11 @@
 
 ## 次やること (優先度低)
 
+* root handler 作成
 * 存在しないファイルの時に何を返すか
 * 認証機能追加
 * errorhandler 作成
   * エラー処理を multierror などでラップする
-* template を外に出す
 
 ## リファクタリング
 

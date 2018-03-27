@@ -18,7 +18,9 @@ func registerRoute(m *middleware.M) {
 	// logger
 	r.Use(chiMiddle.Logger)
 
-	// TODO: root は /show にルーティング
+	// configが設定されているかチェックして
+	// 設定されていないとき /config
+	// 設定されているとき /show にリダイレクト
 	r.Method("GET", "/", &web.ShowHandler{
 		Router:     m.Router,
 		CommonVars: m.CommonVars,
@@ -42,6 +44,7 @@ func registerRoute(m *middleware.M) {
 		r.Method("GET", "/show", &web.ShowHandler{
 			Router:     m.Router,
 			CommonVars: m.CommonVars,
+			Templates:  m.Templates,
 			Markdown:   m.Markdown,
 			Service:    &app.ShowService{Info: &wiki.ShowUseCase{}},
 		})
