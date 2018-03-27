@@ -1,5 +1,18 @@
+# GoLand
 .idea
 go-wiki.iml
+
+# config file
 config.json
 wiki
+
+
+# TODO: rm
 public/html
+
+# bin
+go-wiki
+
+# vendor
+vendor/
+
