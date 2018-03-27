@@ -18,9 +18,6 @@ func registerRoute(m *middleware.M) {
 	// logger
 	r.Use(chiMiddle.Logger)
 
-	// configが設定されているかチェックして
-	// 設定されていないとき /config
-	// 設定されているとき /show にリダイレクト
 	r.Method("GET", "/", &web.RootHandler{
 		Router:     m.Router,
 		CommonVars: m.CommonVars,
@@ -30,6 +27,7 @@ func registerRoute(m *middleware.M) {
 		r.Method("GET", "/config", &web.ConfigGetHandler{
 			Router:     m.Router,
 			CommonVars: m.CommonVars,
+			Templates:  m.Templates,
 			Service:    &app.ConfigService{Info: &wiki.ConfigUseCase{}},
 		})
 		r.Method("POST", "/config", &web.ConfigPostHandler{
@@ -62,6 +60,7 @@ func registerRoute(m *middleware.M) {
 		r.Method("GET", "/edit", &web.EditGetHandler{
 			Router:     m.Router,
 			CommonVars: m.CommonVars,
+			Templates:  m.Templates,
 			Service:    &app.EditService{Info: &wiki.EditUseCase{}},
 		})
 		r.Method("POST", "/edit", &web.EditPostHandler{
@@ -75,6 +74,7 @@ func registerRoute(m *middleware.M) {
 		r.Method("GET", "/diff", &web.DiffHandler{
 			Router:     m.Router,
 			CommonVars: m.CommonVars,
+			Templates:  m.Templates,
 			Service:    &app.DiffService{Info: &wiki.DiffUseCase{}},
 		})
 	}

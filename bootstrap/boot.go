@@ -42,11 +42,11 @@ func Start(m *middleware.M) {
 	// templates初期化
 	{
 		tmpls := templates.NewTemplates("templates")
-		tmpls.Route("show", "show.tmpl")
-		tmpls.Route("edit", "edit.tmpl")
-		tmpls.Route("diff", "diff.tmpl")
-		tmpls.Route("config", "config.tmpl")
-		tmpls.Route("tree", "tree.tmpl")
+		tmpls.Route("show", "show.tmpl", "layout.tmpl")
+		tmpls.Route("edit", "edit.tmpl", "layout.tmpl")
+		tmpls.Route("diff", "diff.tmpl", "layout.tmpl")
+		tmpls.Route("config", "config.tmpl", "layout.tmpl")
+		tmpls.Route("tree", "tree.tmpl", "layout.tmpl")
 
 		m.Templates = tmpls
 	}

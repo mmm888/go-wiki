@@ -4,17 +4,18 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"text/template"
 
 	"github.com/go-chi/chi"
 	"github.com/mmm888/go-wiki/app"
 	wiki "github.com/mmm888/go-wiki/domain"
+	"github.com/mmm888/go-wiki/middleware/templates"
 	"github.com/mmm888/go-wiki/middleware/variable"
 )
 
 type EditGetHandler struct {
 	Router     *chi.Mux
 	CommonVars *variable.CommonVars
+	Templates  *templates.Templates
 	Service    *app.EditService
 }
 
@@ -42,10 +43,8 @@ func (h *EditGetHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		out.Query = fmt.Sprintf("?path=%s", out.Path)
 	}
 
-	funcMap := template.FuncMap{}
-	tmpl := template.Must(template.New("edit.tmpl").Funcs(funcMap).ParseFiles("templates/edit.tmpl"))
-	if err := tmpl.Execute(w, out); err != nil {
-		log.Fatal(err)
+	if err := h.Templates.Render("edit", w, out); err != nil {
+		log.Print(err)
 	}
 }
 

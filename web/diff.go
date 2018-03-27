@@ -4,7 +4,8 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"text/template"
+
+	"github.com/mmm888/go-wiki/middleware/templates"
 
 	"github.com/go-chi/chi"
 	"github.com/mmm888/go-wiki/app"
@@ -16,6 +17,7 @@ import (
 type DiffHandler struct {
 	Router     *chi.Mux
 	CommonVars *variable.CommonVars
+	Templates  *templates.Templates
 	Service    *app.DiffService
 }
 
@@ -44,9 +46,7 @@ func (h *DiffHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		out.Query = fmt.Sprintf("?path=%s", out.Path)
 	}
 
-	funcMap := template.FuncMap{}
-	tmpl := template.Must(template.New("diff.tmpl").Funcs(funcMap).ParseFiles("templates/diff.tmpl"))
-	if err := tmpl.Execute(w, out); err != nil {
+	if err := h.Templates.Render("diff", w, out); err != nil {
 		log.Print(err)
 	}
 }

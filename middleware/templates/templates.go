@@ -13,12 +13,18 @@ type Templates struct {
 	funcMap template.FuncMap
 }
 
-func (t *Templates) Route(r, f string) error {
+func (t *Templates) Route(r string, fs ...string) error {
 	var err error
 
-	path := filepath.Join(t.root, f)
+	f := fs[0]
 
-	t.tmpls[r], err = template.New(f).Funcs(t.funcMap).ParseFiles(path)
+	var files []string
+	for i := range fs {
+		path := filepath.Join(t.root, fs[i])
+		files = append(files, path)
+	}
+
+	t.tmpls[r], err = template.New(f).Funcs(t.funcMap).ParseFiles(files...)
 	if err != nil {
 		return err
 	}

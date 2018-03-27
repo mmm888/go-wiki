@@ -4,7 +4,8 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"text/template"
+
+	"github.com/mmm888/go-wiki/middleware/templates"
 
 	"github.com/go-chi/chi"
 	"github.com/mmm888/go-wiki/app"
@@ -15,6 +16,7 @@ import (
 type ConfigGetHandler struct {
 	Router     *chi.Mux
 	CommonVars *variable.CommonVars
+	Templates  *templates.Templates
 	Service    *app.ConfigService
 }
 
@@ -38,10 +40,8 @@ func (h *ConfigGetHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		out.Query = fmt.Sprintf("?path=%s", out.Path)
 	}
 
-	funcMap := template.FuncMap{}
-	tmpl := template.Must(template.New("config.tmpl").Funcs(funcMap).ParseFiles("templates/config.tmpl"))
-	if err := tmpl.Execute(w, out); err != nil {
-		log.Fatal(err)
+	if err := h.Templates.Render("config", w, out); err != nil {
+		log.Print(err)
 	}
 }
 
