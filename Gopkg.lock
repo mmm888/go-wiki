@@ -11,20 +11,20 @@
   version = "v3.3.2"
 
 [[projects]]
+  name = "github.com/russross/blackfriday"
+  packages = ["."]
+  revision = "cadec560ec52d93835bf2f15bd794700d3a2473b"
+  version = "v2.0.0"
+
+[[projects]]
   branch = "master"
   name = "github.com/shurcooL/sanitized_anchor_name"
   packages = ["."]
   revision = "86672fcb3f950f35f2e675df2240550f2a50762f"
 
-[[projects]]
-  name = "gopkg.in/russross/blackfriday.v2"
-  packages = ["."]
-  revision = "cadec560ec52d93835bf2f15bd794700d3a2473b"
-  version = "v2.0.0"
-
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "ab106b90e59b713531a43150ed7a6bf3331de700f6dc5da4b676348c16c0fc25"
+  inputs-digest = "d236ecd9fb779ac8ee856563e5cd8b807c8924533c1229a6c537c1fbd2c8f9d6"
   solver-name = "gps-cdcl"
   solver-version = 1

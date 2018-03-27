@@ -51,7 +51,8 @@ func Start(m *middleware.M) {
 	}
 
 	// markdown初期化
-	m.Markdown = markdown.NewBlackfriday()
+	//m.Markdown = markdown.NewBlackfriday()
+	m.Markdown = markdown.NewGithubMarkdown()
 
 	// ルーティング設定
 	registerRoute(m)

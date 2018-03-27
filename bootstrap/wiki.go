@@ -21,10 +21,9 @@ func registerRoute(m *middleware.M) {
 	// configが設定されているかチェックして
 	// 設定されていないとき /config
 	// 設定されているとき /show にリダイレクト
-	r.Method("GET", "/", &web.ShowHandler{
+	r.Method("GET", "/", &web.RootHandler{
 		Router:     m.Router,
 		CommonVars: m.CommonVars,
-		Service:    &app.ShowService{Info: &wiki.ShowUseCase{}},
 	})
 
 	{

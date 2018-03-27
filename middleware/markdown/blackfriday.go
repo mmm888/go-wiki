@@ -10,7 +10,9 @@ const (
 		blackfriday.Titleblock | // Titleblock ala pandoc
 		blackfriday.AutoHeadingIDs | // Create the heading ID from the text
 		blackfriday.BackslashLineBreak | // Translate trailing backslashes into line breaks
-		blackfriday.DefinitionLists
+		blackfriday.DefinitionLists // Render definition lists
+
+		//extFlags = 11111111111111111
 
 	// HTMLFlags and Renderer
 	htmlFlags = blackfriday.HTMLFlagsNone |
@@ -20,7 +22,10 @@ const (
 		blackfriday.SmartypantsDashes | // Enable smart dashes (with Smartypants)
 		blackfriday.SmartypantsLatexDashes | // Enable LaTeX-style dashes (with Smartypants)
 		blackfriday.SmartypantsAngledQuotes | // Enable angled double quotes (with Smartypants) for double quotes rendering
-		blackfriday.SmartypantsQuotesNBSP // Enable French guillemets Â» (with Smartypants)
+		blackfriday.SmartypantsQuotesNBSP | // Enable French guillemets Â» (with Smartypants)
+		blackfriday.TOC // Generate a table of contents
+
+		//htmlFlags = 11111111111111111
 )
 
 type Blackfriday struct {

@@ -1,15 +1,26 @@
 package markdown
 
+import (
+	"context"
+
+	"github.com/google/go-github/github"
+)
+
 type GithubMarkdown struct {
+	client *github.Client
+	option *github.MarkdownOptions
 }
 
-func (b GithubMarkdown) HTMLify(markdown []byte) (string, error) {
+func (g *GithubMarkdown) HTMLify(markdown []byte) (string, error) {
 
-	// https://github.com/google/go-github
+	html, _, err := g.client.Markdown(context.Background(), string(markdown), g.option)
 
-	return "", nil
+	return html, err
 }
 
 func NewGithubMarkdown() *GithubMarkdown {
-	return nil
+	return &GithubMarkdown{
+		client: github.NewClient(nil),
+		option: &github.MarkdownOptions{Mode: "gfm", Context: "google/go-github"},
+	}
 }
