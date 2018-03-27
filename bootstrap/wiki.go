@@ -42,6 +42,7 @@ func registerRoute(m *middleware.M) {
 		r.Method("GET", "/show", &web.ShowHandler{
 			Router:     m.Router,
 			CommonVars: m.CommonVars,
+			Markdown:   m.Markdown,
 			Service:    &app.ShowService{Info: &wiki.ShowUseCase{}},
 		})
 	}

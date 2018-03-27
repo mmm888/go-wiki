@@ -5,32 +5,12 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/mmm888/go-wiki/middleware/markdown"
 	"github.com/mmm888/go-wiki/middleware/variable"
-	blackfriday "gopkg.in/russross/blackfriday.v2"
 )
 
 const (
 	defaultFileName = "README.md"
-
-	// blackfriday
-	// Extensions
-	extFlags = blackfriday.Footnotes | // Pandoc-style footnotes
-		blackfriday.NoEmptyLineBeforeBlock | // No need to insert an empty line to start a (code, quote, ordered list, unordered list) block
-		blackfriday.HeadingIDs | // specify heading IDs  with {#id}
-		blackfriday.Titleblock | // Titleblock ala pandoc
-		blackfriday.AutoHeadingIDs | // Create the heading ID from the text
-		blackfriday.BackslashLineBreak | // Translate trailing backslashes into line breaks
-		blackfriday.DefinitionLists
-
-	// HTMLFlags and Renderer
-	htmlFlags = blackfriday.HTMLFlagsNone |
-		blackfriday.FootnoteReturnLinks | //Generate a link at the end of a footnote to return to the source
-		blackfriday.Smartypants | //Enable smart punctuation substitutions
-		blackfriday.SmartypantsFractions | // Enable smart fractions (with Smartypants)
-		blackfriday.SmartypantsDashes | // Enable smart dashes (with Smartypants)
-		blackfriday.SmartypantsLatexDashes | // Enable LaTeX-style dashes (with Smartypants)
-		blackfriday.SmartypantsAngledQuotes | // Enable angled double quotes (with Smartypants) for double quotes rendering
-		blackfriday.SmartypantsQuotesNBSP // Enable French guillemets Â» (with Smartypants)
 )
 
 type ShowUseCase struct {
@@ -39,6 +19,7 @@ type ShowUseCase struct {
 type ShowInput struct {
 	Path       string
 	CommonVars *variable.CommonVars
+	Markdown   markdown.Markdown
 }
 
 type ShowOutput struct {
@@ -52,6 +33,7 @@ type ShowOutput struct {
 func (s *ShowUseCase) Get(in *ShowInput) (*ShowOutput, error) {
 	root := in.CommonVars.Name
 	fpath := filepath.Join(root, in.Path)
+	md := in.Markdown
 
 	path, err := checkDirTrav(root, fpath)
 	if err != nil {
@@ -82,8 +64,7 @@ func (s *ShowUseCase) Get(in *ShowInput) (*ShowOutput, error) {
 		return nil, err
 	}
 
-	renderer := blackfriday.NewHTMLRenderer(blackfriday.HTMLRendererParameters{Flags: 0, Title: "", CSS: ""})
-	out := blackfriday.Run(data, blackfriday.WithExtensions(extFlags), blackfriday.WithRenderer(renderer))
+	out, _ := md.HTMLify(data)
 
-	return &ShowOutput{Path: in.Path, Tree: tree, Contents: string(out)}, nil
+	return &ShowOutput{Path: in.Path, Tree: tree, Contents: out}, nil
 }

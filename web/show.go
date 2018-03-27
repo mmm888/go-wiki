@@ -9,12 +9,14 @@ import (
 	"github.com/go-chi/chi"
 	"github.com/mmm888/go-wiki/app"
 	wiki "github.com/mmm888/go-wiki/domain"
+	"github.com/mmm888/go-wiki/middleware/markdown"
 	"github.com/mmm888/go-wiki/middleware/variable"
 )
 
 type ShowHandler struct {
 	Router     *chi.Mux
 	CommonVars *variable.CommonVars
+	Markdown   markdown.Markdown
 	Service    *app.ShowService
 }
 
@@ -23,6 +25,7 @@ func (h *ShowHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	in := &wiki.ShowInput{
 		CommonVars: h.CommonVars,
+		Markdown:   h.Markdown,
 	}
 
 	q := r.URL.Query()

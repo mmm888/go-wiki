@@ -7,6 +7,7 @@ import (
 	"os"
 
 	"github.com/mmm888/go-wiki/middleware"
+	"github.com/mmm888/go-wiki/middleware/markdown"
 	"github.com/mmm888/go-wiki/middleware/variable"
 )
 
@@ -16,6 +17,7 @@ const (
 
 func Start(m *middleware.M) {
 
+	// 設定ファイル読み込み
 	{
 		config := variable.CommonVars{
 			ConfigPath: configJSONPath,
@@ -36,7 +38,8 @@ func Start(m *middleware.M) {
 		m.CommonVars = &config
 	}
 
-	{
-		registerRoute(m)
-	}
+	m.Markdown = markdown.NewBlackfriday()
+
+	// ルーティング設定
+	registerRoute(m)
 }
