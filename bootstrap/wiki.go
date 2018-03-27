@@ -50,6 +50,15 @@ func registerRoute(m *middleware.M) {
 	}
 
 	{
+		r.Method("GET", "/tree", &web.TreeHandler{
+			Router:     m.Router,
+			CommonVars: m.CommonVars,
+			Templates:  m.Templates,
+			Service:    &app.TreeService{Info: &wiki.TreeUseCase{}},
+		})
+	}
+
+	{
 		r.Method("GET", "/edit", &web.EditGetHandler{
 			Router:     m.Router,
 			CommonVars: m.CommonVars,

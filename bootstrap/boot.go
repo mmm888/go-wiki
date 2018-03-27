@@ -46,6 +46,7 @@ func Start(m *middleware.M) {
 		tmpls.Route("edit", "edit.tmpl")
 		tmpls.Route("diff", "diff.tmpl")
 		tmpls.Route("config", "config.tmpl")
+		tmpls.Route("tree", "tree.tmpl")
 
 		m.Templates = tmpls
 	}

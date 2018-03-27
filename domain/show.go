@@ -25,7 +25,6 @@ type ShowInput struct {
 type ShowOutput struct {
 	Path     string
 	Query    string
-	Tree     string
 	Contents string
 }
 
@@ -40,14 +39,9 @@ func (s *ShowUseCase) Get(in *ShowInput) (*ShowOutput, error) {
 		return nil, err
 	}
 
-	tree, err := dirTree(root, root)
-	if err != nil {
-		return nil, err
-	}
-
 	// root ディレクトリ以外の場所 or 存在しない path のチェック
 	if path == "" {
-		return &ShowOutput{Path: in.Path, Tree: tree}, nil
+		return &ShowOutput{Path: in.Path}, nil
 	}
 
 	// ディレクトリの場合は defaultFile にアクセス
@@ -55,7 +49,7 @@ func (s *ShowUseCase) Get(in *ShowInput) (*ShowOutput, error) {
 		path = filepath.Join(path, defaultFileName)
 
 		if _, err := os.Stat(path); err != nil {
-			return &ShowOutput{Path: in.Path, Tree: tree}, err
+			return &ShowOutput{Path: in.Path}, err
 		}
 	}
 
@@ -66,5 +60,5 @@ func (s *ShowUseCase) Get(in *ShowInput) (*ShowOutput, error) {
 
 	out, _ := md.HTMLify(data)
 
-	return &ShowOutput{Path: in.Path, Tree: tree, Contents: out}, nil
+	return &ShowOutput{Path: in.Path, Contents: out}, nil
 }

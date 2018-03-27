@@ -20,3 +20,8 @@ type DiffService struct {
 	Input *wiki.DiffInput
 	Info  *wiki.DiffUseCase
 }
+
+type TreeService struct {
+	Input *wiki.TreeInput
+	Info  *wiki.TreeUseCase
+}
