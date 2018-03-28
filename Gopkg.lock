@@ -11,6 +11,18 @@
   version = "v3.3.2"
 
 [[projects]]
+  name = "github.com/google/go-github"
+  packages = ["github"]
+  revision = "e48060a28fac52d0f1cb758bc8b87c07bac4a87d"
+  version = "v15.0.0"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/google/go-querystring"
+  packages = ["query"]
+  revision = "53e6ce116135b80d037921a7fdd5138cf32d7a8a"
+
+[[projects]]
   name = "github.com/russross/blackfriday"
   packages = ["."]
   revision = "cadec560ec52d93835bf2f15bd794700d3a2473b"
@@ -25,6 +37,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "d236ecd9fb779ac8ee856563e5cd8b807c8924533c1229a6c537c1fbd2c8f9d6"
+  inputs-digest = "67a8b67e0dd9f2af460039c1cf78b63f97cc9ccacae40379bd3ba99d4779a7e1"
   solver-name = "gps-cdcl"
   solver-version = 1

@@ -12,7 +12,6 @@
 
 ## 次やること (優先度低)
 
-* graceful shutdown
 * 存在しないファイルの時に何を返すか
 * 認証機能追加
 * errorhandler 作成

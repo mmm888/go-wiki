@@ -1,10 +1,16 @@
 package bootstrap
 
 import (
+	"context"
 	"encoding/json"
+	"flag"
 	"io/ioutil"
 	"log"
+	"net/http"
 	"os"
+	"os/signal"
+	"syscall"
+	"time"
 
 	"github.com/mmm888/go-wiki/middleware"
 	"github.com/mmm888/go-wiki/middleware/markdown"
@@ -15,6 +21,13 @@ import (
 const (
 	configJSONPath = "config.json"
 )
+
+var addr string
+
+func init() {
+	flag.StringVar(&addr, "addr", ":8080", "address to bind")
+	flag.Parse()
+}
 
 func Start(m *middleware.M) {
 
@@ -57,4 +70,25 @@ func Start(m *middleware.M) {
 
 	// ルーティング設定
 	registerRoute(m)
+
+	// サーバはブロックするので別の goroutine で実行する
+	srv := &http.Server{Addr: addr, Handler: m.Router}
+	go func() {
+		log.Printf("Start HTTP Server %v", addr)
+		if err := srv.ListenAndServe(); err != nil {
+			log.Printf("Cannot start HTTP Server %v", err)
+		}
+	}()
+
+	// シグナルを待つ
+	sigCh := make(chan os.Signal, 1)
+	signal.Notify(sigCh, syscall.SIGTERM, syscall.SIGINT)
+	<-sigCh
+
+	// シグナルを受け取ったらShutdown
+	ctx, _ := context.WithTimeout(context.Background(), 5*time.Second)
+	log.Print("Shutting down...")
+	if err := srv.Shutdown(ctx); err != nil {
+		log.Printf("Error Shutdown() %v", err)
+	}
 }
