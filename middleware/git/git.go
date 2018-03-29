@@ -7,8 +7,8 @@ import (
 )
 
 const (
-	count  = 5
-	format = "%h"
+	diffOptionCount  = 5
+	diffOptionFormat = "%h"
 )
 
 type Git struct {
@@ -30,8 +30,9 @@ func (g *Git) Diff(fpath string) (string, error) {
 	if err != nil {
 		return "", err
 	}
+	lastCommitLog := out[len(out)-1]
 
-	cmdStr := fmt.Sprintf("-C %s diff %s -- %s", g.Root, out[len(out)-1], path)
+	cmdStr := fmt.Sprintf("-C %s diff %s -- %s", g.Root, lastCommitLog, path)
 	cmd := strings.Split(cmdStr, " ")
 
 	result, err := execGit(cmd)
@@ -48,7 +49,7 @@ func (g *Git) commitLogList(fpath string) ([]string, error) {
 		path = "."
 	}
 
-	cmdStr := fmt.Sprintf("-C %s log -%d --pretty=format:%s -- %s", g.Root, count, format, path)
+	cmdStr := fmt.Sprintf("-C %s log -%d --pretty=format:%s -- %s", g.Root, diffOptionCount, diffOptionFormat, path)
 	cmd := strings.Split(cmdStr, " ")
 
 	out, err := execGit(cmd)
@@ -61,6 +62,13 @@ func (g *Git) commitLogList(fpath string) ([]string, error) {
 
 func (g *Git) Init() error {
 	// git init
+
+	// root が設定されてないならスルー
+	// root が設定されていて .git があるならスルー
+
+	// git init
+	// g.Commit()
+
 	return nil
 }
 

@@ -71,6 +71,9 @@ func Start(m *middleware.M) {
 	// ルーティング設定
 	registerRoute(m)
 
+	// git初期設定
+	gitSetting(m)
+
 	// サーバはブロックするので別の goroutine で実行する
 	srv := &http.Server{Addr: addr, Handler: m.Router}
 	go func() {
