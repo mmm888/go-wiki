@@ -1,16 +1,16 @@
 # go-wiki
 
-## 次やること
+## TODO
 
-* diff: commit log のリスト表示 + commit log との差分表示
+* diff: 差分表示に色付け
 * git 管理
-  * git init
   * ファイル編集時コミット
+    * コミット契機を考える
 * test を書く
+
+## Memo
+
 * go-assets 使う
-
-## 次やること (優先度低)
-
 * 存在しないファイルの時に何を返すか
 * 認証機能追加
 * errorhandler 作成

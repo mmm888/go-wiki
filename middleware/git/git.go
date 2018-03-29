@@ -23,23 +23,37 @@ func NewGit(root, url string) *Git {
 	return &Git{Root: root, URL: url}
 }
 
-func (g *Git) Diff(fpath string) (string, error) {
+// commitHashに値が入っていない場合は一覧を返し、
+// 入っている場合はdiffの内容をスライスの先頭に入れて返す
+func (g *Git) Diff(fpath string, commitHash string) ([]string, error) {
+
+	var err error
+
 	path := strings.TrimPrefix(fpath, g.Root+"/")
 	if path == g.Root {
 		path = "."
 	}
 
-	out, err := g.commitLogList(path)
-	if err != nil {
-		return "", err
-	}
+	var result []string
 
-	cmdStr := fmt.Sprintf("-C %s diff %s -- %s", g.Root, out[len(out)-1], path)
-	cmd := strings.Split(cmdStr, " ")
+	if commitHash == "" {
+		// diffのlog一覧を返す
+		result, err = g.commitLogList(path)
+		if err != nil {
+			return nil, err
+		}
 
-	result, err := execGit(cmd)
-	if err != nil {
-		return "", err
+	} else {
+		// commitHashのgit diff結果を返す
+		cmdStr := fmt.Sprintf("-C %s diff %s -- %s", g.Root, commitHash, path)
+		cmd := strings.Split(cmdStr, " ")
+
+		out, err := execGit(cmd)
+		if err != nil {
+			return nil, err
+		}
+
+		result = []string{out}
 	}
 
 	return result, nil

@@ -4,8 +4,21 @@
 {{ template "header" . }}
 
 <div id="github">
+
+{{ if .IsCommitHash }}
 <h2>差分</h2>
-{{.Contents}}
+{{ index .Contents 0 }}
+
+{{ else }}
+<ul>
+{{ range .Contents }}
+<li>
+<a href="/diff/{{ . }}">{{ . }}</a>
+</li>
+{{ end }}
+</ul>
+{{ end }}
+
 </div>
 </body>
 </html>

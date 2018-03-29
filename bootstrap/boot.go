@@ -76,7 +76,7 @@ func Start(m *middleware.M) {
 	go func() {
 		log.Printf("Start HTTP Server %v", addr)
 		if err := srv.ListenAndServe(); err != nil {
-			log.Printf("Cannot start HTTP Server %v", err)
+			log.Printf("Error HTTP Server %v", err)
 		}
 	}()
 
