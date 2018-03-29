@@ -22,8 +22,8 @@ const (
 		blackfriday.SmartypantsDashes | // Enable smart dashes (with Smartypants)
 		blackfriday.SmartypantsLatexDashes | // Enable LaTeX-style dashes (with Smartypants)
 		blackfriday.SmartypantsAngledQuotes | // Enable angled double quotes (with Smartypants) for double quotes rendering
-		blackfriday.SmartypantsQuotesNBSP | // Enable French guillemets Â» (with Smartypants)
-		blackfriday.TOC // Generate a table of contents
+		blackfriday.SmartypantsQuotesNBSP // Enable French guillemets Â» (with Smartypants)
+		//blackfriday.TOC // Generate a table of contents
 
 		//htmlFlags = 11111111111111111
 )

@@ -3,6 +3,7 @@
 <body>
 {{ template "header" . }}
 
+<div id="github">
 <h1>Edit</h1>
 <form action="/edit{{.Query}}" method="post">
     {{- if .IsDir}}
@@ -27,5 +28,6 @@
         <input type="submit" value="送信">
     </p>
 </form>
+</div>
 </body>
 </html>

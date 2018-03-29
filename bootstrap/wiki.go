@@ -77,6 +77,13 @@ func registerRoute(m *middleware.M) {
 			Templates:  m.Templates,
 			Service:    &app.DiffService{Info: &wiki.DiffUseCase{}},
 		})
+
+		r.Method("GET", "/diff/{hash}", &web.DiffHandler{
+			Router:     m.Router,
+			CommonVars: m.CommonVars,
+			Templates:  m.Templates,
+			Service:    &app.DiffService{Info: &wiki.DiffUseCase{}},
+		})
 	}
 
 	// static file

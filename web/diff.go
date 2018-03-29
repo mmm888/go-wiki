@@ -33,13 +33,15 @@ func (h *DiffHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		in.Path = v
 	}
 
+	// TODO: dependency chi
+	if v := chi.URLParam(r, "hash"); v != "" {
+		in.CommitHash = v
+		in.IsCommitHash = true
+	}
+
 	out, err := h.Service.Info.Get(in)
 	if err != nil {
 		log.Print(err)
-	}
-
-	if out == nil {
-		return
 	}
 
 	if out.Path != "" {

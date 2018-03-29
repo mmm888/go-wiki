@@ -3,7 +3,20 @@
 <body>
 {{ template "header" . }}
 
+<div id="github">
+
+{{- if .IsCommitHash }}
 <h2>差分</h2>
-{{.Contents}}
+{{ .DiffInfo }}
+
+{{- else }}
+<ul>
+{{- range $v := .DiffList }}
+    <li><a href="/diff/{{ $v.Hash }}">{{ $v.Message }}</a></li>
+{{- end }}
+</ul>
+{{- end }}
+
+</div>
 </body>
 </html>
