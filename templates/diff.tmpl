@@ -5,19 +5,17 @@
 
 <div id="github">
 
-{{ if .IsCommitHash }}
+{{- if .IsCommitHash }}
 <h2>差分</h2>
-{{ index .Contents 0 }}
+{{ .DiffInfo }}
 
-{{ else }}
+{{- else }}
 <ul>
-{{ range .Contents }}
-<li>
-<a href="/diff/{{ . }}">{{ . }}</a>
-</li>
-{{ end }}
+{{- range $v := .DiffList }}
+    <li><a href="/diff/{{ $v.Hash }}">{{ $v.Message }}</a></li>
+{{- end }}
 </ul>
-{{ end }}
+{{- end }}
 
 </div>
 </body>

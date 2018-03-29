@@ -22,6 +22,8 @@ type DiffInput struct {
 type DiffOutput struct {
 	Path         string
 	Query        string
+	DiffList     []git.CommitInfo
+	DiffInfo     string
 	Contents     []string
 	IsCommitHash bool
 }
@@ -36,15 +38,15 @@ func (s *DiffUseCase) Get(in *DiffInput) (*DiffOutput, error) {
 		return nil, err
 	}
 
-	out, err := in.Git.Diff(path, commitHash)
+	list, info, err := in.Git.Diff(path, commitHash)
 	if err != nil {
-		return &DiffOutput{Path: in.Path, Contents: []string{}, IsCommitHash: in.IsCommitHash}, err
+		return &DiffOutput{Path: in.Path, IsCommitHash: in.IsCommitHash}, err
 	}
 
 	// 改行を置換
 	if in.IsCommitHash {
-		out[0] = strings.Replace(out[0], "\n", "<br>\n", -1)
+		info = strings.Replace(info, "\n", "<br>\n", -1)
 	}
 
-	return &DiffOutput{Path: in.Path, Contents: out, IsCommitHash: in.IsCommitHash}, nil
+	return &DiffOutput{Path: in.Path, DiffList: list, DiffInfo: info, IsCommitHash: in.IsCommitHash}, nil
 }

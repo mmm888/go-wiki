@@ -68,7 +68,7 @@ func TestGitCommit(t *testing.T) {
 }
 
 func TestGitDiff(t *testing.T) {
-	if _, err := testGit.Diff(testGit.Root, ""); err != nil {
+	if _, _, err := testGit.Diff(testGit.Root, ""); err != nil {
 		t.Errorf("Error git diff %v", err)
 	}
 
