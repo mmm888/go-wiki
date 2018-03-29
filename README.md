@@ -7,7 +7,6 @@
   * git init
   * ファイル編集時コミット
 * test を書く
-* 見た目を github みたいにする
 * go-assets 使う
 
 ## 次やること (優先度低)
@@ -16,7 +15,3 @@
 * 認証機能追加
 * errorhandler 作成
   * エラー処理を multierror などでラップする
-
-## リファクタリング
-
-* template ファイルの共通部分をまとめる
