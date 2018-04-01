@@ -34,8 +34,8 @@ func (g *Git) Diff(fpath string, commitHash string) ([]CommitInfo, string, error
 		path = "."
 	}
 
+	// diffのlog一覧を返す
 	if commitHash == "" {
-		// diffのlog一覧を返す
 		result, err := g.commitLogList(path)
 		if err != nil {
 			return nil, "", err
@@ -43,18 +43,18 @@ func (g *Git) Diff(fpath string, commitHash string) ([]CommitInfo, string, error
 
 		return result, "", err
 
-	} else {
-		// commitHashのgit diff結果を返す
-		cmdStr := fmt.Sprintf("-C %s diff %s -- %s", g.Root, commitHash, path)
-		cmd := strings.Split(cmdStr, " ")
-
-		result, err := execGit(cmd)
-		if err != nil {
-			return nil, "", err
-		}
-
-		return nil, result, nil
 	}
+
+	// commitHashのgit diff結果を返す
+	cmdStr := fmt.Sprintf("-C %s diff %s -- %s", g.Root, commitHash, path)
+	cmd := strings.Split(cmdStr, " ")
+
+	result, err := execGit(cmd)
+	if err != nil {
+		return nil, "", err
+	}
+
+	return nil, result, nil
 }
 
 type CommitInfo struct {
