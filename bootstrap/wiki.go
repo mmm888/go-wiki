@@ -8,12 +8,14 @@ import (
 	chiMiddle "github.com/go-chi/chi/middleware"
 	"github.com/mmm888/go-wiki/app"
 	wiki "github.com/mmm888/go-wiki/domain"
+	"github.com/mmm888/go-wiki/job"
 	"github.com/mmm888/go-wiki/middleware"
 	"github.com/mmm888/go-wiki/web"
 )
 
 func registerRoute(m *middleware.M) {
 	r := m.Router
+	jq := m.JobQueue
 
 	// logger
 	r.Use(chiMiddle.Logger)
@@ -93,6 +95,14 @@ func registerRoute(m *middleware.M) {
 
 		// 最後に削除
 		fileServer(r, "/html", "./public/html")
+	}
+
+	// worker
+	{
+		j := job.GitCommitJob{
+			Git: m.Git,
+		}
+		jq.Route("git/commit", j)
 	}
 }
 

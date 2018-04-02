@@ -23,6 +23,15 @@
   revision = "53e6ce116135b80d037921a7fdd5138cf32d7a8a"
 
 [[projects]]
+  branch = "master"
+  name = "github.com/kylelemons/godebug"
+  packages = [
+    "diff",
+    "pretty"
+  ]
+  revision = "d65d576e9348f5982d7f6d83682b694e731a45c6"
+
+[[projects]]
   name = "github.com/russross/blackfriday"
   packages = ["."]
   revision = "cadec560ec52d93835bf2f15bd794700d3a2473b"
@@ -37,6 +46,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "67a8b67e0dd9f2af460039c1cf78b63f97cc9ccacae40379bd3ba99d4779a7e1"
+  inputs-digest = "cde15d8ac7c86a6b446e24f192fc7b86050dc806bd9742f97906a090ead44b4c"
   solver-name = "gps-cdcl"
   solver-version = 1

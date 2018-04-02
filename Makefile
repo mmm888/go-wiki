@@ -4,7 +4,7 @@ BIN := go-wiki
 APP := github.com/mmm888/go-wiki
 
 
-.PHONY:	build vendor clean run
+.PHONY:	build vendor clean run test
 
 
 build: vendor
@@ -46,3 +46,7 @@ dep-ensure: dep-install
 
 run: vendor
 	go run *.go
+
+
+test: 
+	go test $(APP)/... -cover

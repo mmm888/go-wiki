@@ -2,9 +2,11 @@ package middleware
 
 import (
 	"github.com/go-chi/chi"
+	"github.com/mmm888/go-wiki/middleware/git"
 	"github.com/mmm888/go-wiki/middleware/markdown"
 	"github.com/mmm888/go-wiki/middleware/templates"
 	"github.com/mmm888/go-wiki/middleware/variable"
+	"github.com/mmm888/go-wiki/middleware/worker"
 )
 
 type M struct {
@@ -12,4 +14,6 @@ type M struct {
 	Templates  *templates.Templates
 	CommonVars *variable.CommonVars
 	Markdown   markdown.Markdown
+	JobQueue   *worker.JobQueue
+	Git        *git.Git
 }

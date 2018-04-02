@@ -2,16 +2,16 @@
 
 ## TODO
 
-* diff: 差分表示に色付け
 * git 管理
-  * ファイル編集時コミット
-    * コミット契機を考える
+  * 1日一回 cron で実行
+    * cronの実装
+* git init の確認処理
 * test を書く
 * go-assets 使う
 
 ## Memo
 
-* go-assets 使う
+* diff: 差分表示に色付け
 * 存在しないファイルの時に何を返すか
 * 認証機能追加
 * errorhandler 作成

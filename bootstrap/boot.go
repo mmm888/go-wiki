@@ -12,6 +12,8 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/mmm888/go-wiki/middleware/worker"
+
 	"github.com/mmm888/go-wiki/middleware"
 	"github.com/mmm888/go-wiki/middleware/markdown"
 	"github.com/mmm888/go-wiki/middleware/templates"
@@ -67,6 +69,11 @@ func Start(m *middleware.M) {
 	// markdown初期化
 	//m.Markdown = markdown.NewBlackfriday()
 	m.Markdown = markdown.NewGithubMarkdown()
+
+	// worker初期化
+	m.JobQueue = worker.NewJobQueue(100)
+	m.JobQueue.Start()
+	defer m.JobQueue.Stop()
 
 	// ルーティング設定
 	registerRoute(m)
