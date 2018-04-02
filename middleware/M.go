@@ -2,6 +2,7 @@ package middleware
 
 import (
 	"github.com/go-chi/chi"
+	"github.com/mmm888/go-wiki/middleware/cron"
 	"github.com/mmm888/go-wiki/middleware/git"
 	"github.com/mmm888/go-wiki/middleware/markdown"
 	"github.com/mmm888/go-wiki/middleware/templates"
@@ -16,4 +17,5 @@ type M struct {
 	Markdown   markdown.Markdown
 	JobQueue   *worker.JobQueue
 	Git        *git.Git
+	Cron       *cron.Cron
 }

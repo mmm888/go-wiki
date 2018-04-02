@@ -12,6 +12,7 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/mmm888/go-wiki/middleware/cron"
 	"github.com/mmm888/go-wiki/middleware/worker"
 
 	"github.com/mmm888/go-wiki/middleware"
@@ -75,11 +76,21 @@ func Start(m *middleware.M) {
 	m.JobQueue.Start()
 	defer m.JobQueue.Stop()
 
+	// git初期設定
+	gitSetting(m)
+
 	// ルーティング設定
 	registerRoute(m)
 
-	// git初期設定
-	gitSetting(m)
+	// バッチ処理の初期化
+	m.Cron = cron.NewCron()
+	m.Cron.Start()
+	m.Cron.Add(cron.Daily, func() {
+		m.JobQueue.Push(worker.JobInput{
+			ID:   "git/commit",
+			Data: nil,
+		})
+	})
 
 	// サーバはブロックするので別の goroutine で実行する
 	srv := &http.Server{Addr: addr, Handler: m.Router}

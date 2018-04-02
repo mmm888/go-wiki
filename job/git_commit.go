@@ -15,10 +15,12 @@ func (j GitCommitJob) Serve(data []byte) {
 		return
 	}
 
+	log.Print("Git Init")
 	if _, err := j.Git.Init(); err != nil {
 		log.Print(err)
 	}
 
+	log.Print("Git Commit")
 	if _, err := j.Git.Commit(); err != nil {
 		log.Print(err)
 	}

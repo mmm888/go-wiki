@@ -11,8 +11,9 @@
 
 {{- else }}
 <ul>
+{{ $q := .Query }}
 {{- range $v := .DiffList }}
-    <li><a href="/diff/{{ $v.Hash }}">{{ $v.Message }}</a></li>
+    <li><a href="/diff/{{ $v.Hash }}{{ $q }}">{{ $v.Message }}</a></li>
 {{- end }}
 </ul>
 {{- end }}

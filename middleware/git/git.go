@@ -10,9 +10,8 @@ import (
 )
 
 const (
-	count = 5
-	sep   = ":"
-	//format = "%h"
+	count  = 5
+	sep    = ":"
 	format = "%h" + sep + "%s"
 )
 
@@ -25,8 +24,8 @@ func NewGit(root, url string) *Git {
 	return &Git{Root: root, URL: url}
 }
 
-// commitHashに値が入っていない場合は一覧を返し、
-// 入っている場合はdiffの内容をスライスの先頭に入れて返す
+// commitHashに値が入っていない場合は一覧を[]CommitInfoに入れる
+// 入っている場合はdiffの内容をstringに入れる
 func (g *Git) Diff(fpath string, commitHash string) ([]CommitInfo, string, error) {
 
 	path := strings.TrimPrefix(fpath, g.Root+"/")
@@ -42,11 +41,10 @@ func (g *Git) Diff(fpath string, commitHash string) ([]CommitInfo, string, error
 		}
 
 		return result, "", err
-
 	}
 
 	// commitHashのgit diff結果を返す
-	cmdStr := fmt.Sprintf("-C %s diff %s -- %s", g.Root, commitHash, path)
+	cmdStr := fmt.Sprintf("-C %s diff %s -- %s", g.Root, commitHash+"..HEAD", path)
 	cmd := strings.Split(cmdStr, " ")
 
 	result, err := execGit(cmd)
@@ -68,7 +66,7 @@ func (g *Git) commitLogList(fpath string) ([]CommitInfo, error) {
 		path = "."
 	}
 
-	cmdStr := fmt.Sprintf("-C %s log -%d --pretty=format:\"%s\" -- %s", g.Root, count, format, path)
+	cmdStr := fmt.Sprintf("-C %s log -%d --pretty=format:\"%s\" -- %s", g.Root, count+1, format, path)
 	cmd := strings.Split(cmdStr, " ")
 
 	// return: <Commit Hash><sep><Commit Message>
@@ -94,7 +92,7 @@ func (g *Git) commitLogList(fpath string) ([]CommitInfo, error) {
 		result[i].Message = strings.Join(s[1:], "")
 	}
 
-	return result, nil
+	return result[1:len(result)], nil
 }
 
 func (g *Git) Init() (string, error) {
