@@ -3,10 +3,7 @@
 ## TODO
 
 * test を書く
-* go-assets 使う
-  * assets/ に全て移行
-  * OpenとStringのインターフェースを作成してそこ経由に変更
-  * template.R と fileserverをきれいにする
+* Dockerfile 修正
 
 ## Memo
 

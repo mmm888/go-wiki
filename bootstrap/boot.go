@@ -51,6 +51,11 @@ func Start(m *middleware.M) {
 			}
 		}
 
+		// デフォルトのディレクトリ名を wiki
+		if config.Name == "" {
+			config.Name = "wiki"
+		}
+
 		m.CommonVars = &config
 	}
 
