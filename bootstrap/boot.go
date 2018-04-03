@@ -12,13 +12,12 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/mmm888/go-wiki/middleware/cron"
-	"github.com/mmm888/go-wiki/middleware/worker"
-
 	"github.com/mmm888/go-wiki/middleware"
+	"github.com/mmm888/go-wiki/middleware/cron"
 	"github.com/mmm888/go-wiki/middleware/markdown"
 	"github.com/mmm888/go-wiki/middleware/templates"
 	"github.com/mmm888/go-wiki/middleware/variable"
+	"github.com/mmm888/go-wiki/middleware/worker"
 )
 
 const (
@@ -57,7 +56,7 @@ func Start(m *middleware.M) {
 
 	// templates初期化
 	{
-		tmpls := templates.NewTemplates("templates")
+		tmpls := templates.NewTemplates("templates", m.Assetses["templates"])
 		tmpls.Route("show", "show.tmpl", "layout.tmpl")
 		tmpls.Route("edit", "edit.tmpl", "layout.tmpl")
 		tmpls.Route("diff", "diff.tmpl", "layout.tmpl")

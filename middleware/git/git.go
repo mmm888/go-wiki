@@ -77,14 +77,14 @@ func (g *Git) commitLogList(fpath string) ([]CommitInfo, error) {
 
 	list := strings.Split(out, "\n")
 
-	c := count
+	c := count + 1
 	if c > len(list) {
 		c = len(list)
 	}
 
 	result := make([]CommitInfo, c)
 
-	for i := range list {
+	for i := 0; i < c; i++ {
 		line := strings.Trim(list[i], "\"")
 		s := strings.Split(line, sep)
 
@@ -92,7 +92,7 @@ func (g *Git) commitLogList(fpath string) ([]CommitInfo, error) {
 		result[i].Message = strings.Join(s[1:], "")
 	}
 
-	return result[1:len(result)], nil
+	return result[1:c], nil
 }
 
 func (g *Git) Init() (string, error) {

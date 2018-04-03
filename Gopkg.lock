@@ -11,6 +11,12 @@
   version = "v3.3.2"
 
 [[projects]]
+  name = "github.com/gobuffalo/packr"
+  packages = ["."]
+  revision = "3402a167bccf1bdd5c93ca820be9f27bba46261e"
+  version = "v1.10.7"
+
+[[projects]]
   name = "github.com/google/go-github"
   packages = ["github"]
   revision = "e48060a28fac52d0f1cb758bc8b87c07bac4a87d"
@@ -32,6 +38,18 @@
   revision = "d65d576e9348f5982d7f6d83682b694e731a45c6"
 
 [[projects]]
+  name = "github.com/pkg/errors"
+  packages = ["."]
+  revision = "645ef00459ed84a119197bfb8d8205042c6df63d"
+  version = "v0.8.0"
+
+[[projects]]
+  name = "github.com/robfig/cron"
+  packages = ["."]
+  revision = "b024fc5ea0e34bc3f83d9941c8d60b0622bfaca4"
+  version = "v1"
+
+[[projects]]
   name = "github.com/russross/blackfriday"
   packages = ["."]
   revision = "cadec560ec52d93835bf2f15bd794700d3a2473b"
@@ -46,6 +64,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "cde15d8ac7c86a6b446e24f192fc7b86050dc806bd9742f97906a090ead44b4c"
+  inputs-digest = "be144dcc85955b9cd27ff477292a20768c3cc67d083f43cbf0aeaf73c946b13d"
   solver-name = "gps-cdcl"
   solver-version = 1

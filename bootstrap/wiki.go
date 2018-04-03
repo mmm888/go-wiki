@@ -2,9 +2,7 @@ package bootstrap
 
 import (
 	"net/http"
-	"path"
 
-	"github.com/go-chi/chi"
 	chiMiddle "github.com/go-chi/chi/middleware"
 	"github.com/mmm888/go-wiki/app"
 	wiki "github.com/mmm888/go-wiki/domain"
@@ -90,11 +88,12 @@ func registerRoute(m *middleware.M) {
 
 	// static file
 	{
-		fileServer(r, "/css", "./public/css")
-		fileServer(r, "/js", "./public/js")
+		publicAssets := m.Assetses["public"]
+		r.Method("GET", "/css/*", http.FileServer(publicAssets))
+		r.Method("GET", "/js/*", http.FileServer(publicAssets))
 
-		// 最後に削除
-		fileServer(r, "/html", "./public/html")
+		// TODO: テスト用, 最後に削除
+		r.Method("GET", "/html/*", http.FileServer(publicAssets))
 	}
 
 	// worker
@@ -104,14 +103,4 @@ func registerRoute(m *middleware.M) {
 		}
 		jq.Route("git/commit", j)
 	}
-}
-
-// TODO: https://github.com/go-chi/chi/blob/master/_examples/fileserver/main.go
-func fileServer(r *chi.Mux, pattern, filepath string) {
-	fs := http.StripPrefix(pattern, http.FileServer(http.Dir(filepath)))
-	pattern = path.Join(pattern, "*")
-
-	r.Get(pattern, http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		fs.ServeHTTP(w, r)
-	}))
 }
