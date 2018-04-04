@@ -8,3 +8,5 @@ services:
      - "8080:8080"
     volumes:
      - "./wiki:/go/src/github.com/mmm888/go-wiki/wiki"
+     - "~/.ssh/config:/root/.ssh/config"
+     - "~/.ssh/id_rsa_github:/root/.ssh/id_rsa_github"
