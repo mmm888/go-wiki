@@ -6,12 +6,12 @@ import (
 	"github.com/mmm888/go-wiki/middleware/git"
 )
 
-type GitCommitJob struct {
+type GitPushJob struct {
 	Git *git.Git
 }
 
-// git int + git add + git commit
-func (j GitCommitJob) Serve(data []byte) {
+// git int + git add + git commit + git push
+func (j GitPushJob) Serve(data []byte) {
 	if j.Git.Root == "" {
 		return
 	}
@@ -23,6 +23,11 @@ func (j GitCommitJob) Serve(data []byte) {
 
 	log.Print("Git Commit")
 	if _, err := j.Git.Commit(); err != nil {
+		log.Print(err)
+	}
+
+	log.Print("Git Push")
+	if _, err := j.Git.Push(); err != nil {
 		log.Print(err)
 	}
 }

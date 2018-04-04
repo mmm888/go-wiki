@@ -98,9 +98,16 @@ func registerRoute(m *middleware.M) {
 
 	// worker
 	{
+		/* git commit
 		j := job.GitCommitJob{
 			Git: m.Git,
 		}
 		jq.Route("git/commit", j)
+		*/
+
+		j := job.GitPushJob{
+			Git: m.Git,
+		}
+		jq.Route("git/push", j)
 	}
 }

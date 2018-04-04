@@ -6,9 +6,8 @@ go-wiki.iml
 config.json
 wiki
 
-
 # TODO: rm
-public/html
+assets/public/html
 
 # bin
 go-wiki

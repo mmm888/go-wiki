@@ -131,7 +131,7 @@ func (g *Git) Commit() (string, error) {
 		return "", err
 	}
 
-	// 現在時間取得
+	// 現在日付取得
 	jst, _ := time.LoadLocation("Asia/Tokyo")
 	now := time.Now().In(jst)
 	nowStr := now.Format("2006-01-02")
@@ -151,7 +151,15 @@ func (g *Git) Commit() (string, error) {
 
 func (g *Git) Push() (string, error) {
 	// git push
-	return "", nil
+	cmdStr := fmt.Sprintf("-C %s push", g.Root)
+	cmd := strings.Split(cmdStr, " ")
+
+	result, err := execGit(cmd)
+	if err != nil {
+		return "", err
+	}
+
+	return result, nil
 }
 
 func (g *Git) Reset() (string, error) {

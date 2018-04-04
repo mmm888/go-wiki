@@ -95,7 +95,7 @@ func Start(m *middleware.M) {
 	m.Cron.Start()
 	m.Cron.Add(cron.Daily, func() {
 		m.JobQueue.Push(worker.JobInput{
-			ID:   "git/commit",
+			ID:   "git/push",
 			Data: nil,
 		})
 	})
