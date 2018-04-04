@@ -11,19 +11,9 @@ build: vendor assets
 	go build -o $(BIN) .
 
 
+# TODO: md5 とって変更ないときは dep ensure を実行しない
 vendor: dep-install
-ifneq ($(VENDOR_MD5),$(GOPKG_MD5))
 	dep ensure
-ifneq ($(shell type md5 2> /dev/null),)
-	md5 -q Gopkg.lock >| vendor/lock.md5
-else ifneq ($(shell type md5sum 2> /dev/null),)
-	md5sum Gopkg.lock | sed -E 's/ .*//g' >| vendor/lock.md5
-else
-	@echo vendor/lock.md5 was not created 1>&2
-endif
-else
-	@echo vendor/ is already up-to-date
-endif
 
 
 assets: packr
@@ -58,7 +48,7 @@ ifeq ($(shell type packr 2> /dev/null),)
 endif
 
 
-run: vendor
+run: vendor assets
 	go run *.go
 
 

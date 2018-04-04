@@ -24,10 +24,14 @@ const (
 	configJSONPath = "config.json"
 )
 
-var addr string
+var (
+	addr     string
+	maxQueue int
+)
 
 func init() {
 	flag.StringVar(&addr, "addr", ":8080", "address to bind")
+	flag.IntVar(&maxQueue, "maxQueue", 100, "max queue of worker")
 	flag.Parse()
 }
 
@@ -76,7 +80,7 @@ func Start(m *middleware.M) {
 	m.Markdown = markdown.NewGithubMarkdown()
 
 	// worker初期化
-	m.JobQueue = worker.NewJobQueue(100)
+	m.JobQueue = worker.NewJobQueue(maxQueue)
 	m.JobQueue.Start()
 	defer m.JobQueue.Stop()
 
