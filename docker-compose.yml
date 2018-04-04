@@ -2,7 +2,7 @@ version: "3"
 
 services:
   go-wiki:
-    build: containers/go-wiki
+    build: containers/wiki
     container_name: wiki
     ports:
      - "8080:8080"
