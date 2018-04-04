@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  go-wiki:
+    build: containers/go-wiki
+    container_name: wiki
+    ports:
+     - "8080:8080"
+    volumes:
+     - "./wiki:/go/src/github.com/mmm888/go-wiki/wiki"
