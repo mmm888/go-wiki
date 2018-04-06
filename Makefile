@@ -11,9 +11,8 @@ build: vendor assets
 	go build -o $(BIN) .
 
 
-# TODO: md5 とって変更ないときは dep ensure を実行しない
 vendor: dep-install
-	dep ensure
+	dep ensure -vendor-only=true
 
 
 assets: packr
